@@ -158,7 +158,7 @@
 
 /* This has impact on speed of search for highest priority */
 #ifdef SMALL_TEST
-#define configMAX_PRIORITIES			( 7 )
+#define configMAX_PRIORITIES			( 12 )
 #else
 #define configMAX_PRIORITIES			( 25 )
 #endif
@@ -248,13 +248,14 @@
 #define configUSE_NEWLIB_REENTRANT		1
 
 #define configSUPPORT_DYNAMIC_ALLOCATION    1
+#define configSUPPORT_STATIC_ALLOCATION 1
 
 /* Test FreeRTOS timers (with timer task) and more. */
 /* Some files don't compile if this flag is disabled */
 #define configUSE_TIMERS                    1
-#define configTIMER_TASK_PRIORITY           1
+#define configTIMER_TASK_PRIORITY           10
 #define configTIMER_QUEUE_LENGTH            10
-#define configTIMER_TASK_STACK_DEPTH        configMINIMAL_STACK_SIZE
+#define configTIMER_TASK_STACK_DEPTH        2048
 
 #define INCLUDE_xTimerPendFunctionCall      1
 #define INCLUDE_eTaskGetState               1
@@ -268,6 +269,11 @@
 #define configENABLE_TASK_SNAPSHOT			1
 #endif
 
+#ifndef __ASSEMBLER__
+void mp_thread_clean (void *tcb);
+#endif
+
+#define portCLEAN_UP_TCB(pxTCB)             mp_thread_clean(pxTCB)
 
 #endif /* FREERTOS_CONFIG_H */
 
