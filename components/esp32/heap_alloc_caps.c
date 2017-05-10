@@ -202,8 +202,19 @@ void heap_alloc_caps_init() {
     disable_mem_region((void*)0x40070000, (void*)0x40078000); //CPU0 cache region
     disable_mem_region((void*)0x40078000, (void*)0x40080000); //CPU1 cache region
 
-    disable_mem_region((void*)0x3ffe0000, (void*)0x3ffe0400); //knock out ROM data region (originally 0x8000 in size)
-
+    /* Warning: The ROM stack is located in the 0x3ffe0000 area. We do not specifically disable that area here because
+       after the scheduler has started, the ROM stack is not used anymore by anything. We handle it instead by not allowing
+       any mallocs from tag 1 (the IRAM/DRAM region) until the scheduler has started.
+       The 0x3ffe0000 region also contains static RAM for various ROM functions. The following lines knocks
+       out the regions for UART and ETSC, so these functions are usable. Libraries like xtos, which are
+       not usable in FreeRTOS anyway, are commented out in the linker script so they cannot be used; we
+       do not disable their memory regions here and they will be used as general purpose heap memory.
+       Enabling the heap allocator for this region but disabling allocation here until FreeRTOS is started up
+       is a somewhat risky action in theory, because on initializing the allocator, it will go and write linked
+       list entries at the start and end of all regions. For the ESP32, these linked list entries happen to end
+       up in a region that is not touched by the stack; they can be placed safely there.*/
+    disable_mem_region((void*)0x3ffe0000, (void*)0x3ffe0440); //knock out ROM PRO data region
+disable_mem_region((void*)0x3ffe4000, (void*)0x3ffe4350); //knock out ROM APP data region
 
 #if CONFIG_BT_ENABLED
 #if CONFIG_BT_DRAM_RELEASE
