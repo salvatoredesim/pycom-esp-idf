@@ -14,8 +14,10 @@
 
 #include "btc_task.h"
 #include "btc_main.h"
+#include "btc_dm.h"
 #include "future.h"
 #include "esp_err.h"
+#include "btc_config.h"
 
 static future_t *main_future[BTC_MAIN_FUTURE_NUM];
 
@@ -41,16 +43,17 @@ static void btc_sec_callback(tBTA_DM_SEC_EVT event, tBTA_DM_SEC *p_data)
 
 static void btc_enable_bluetooth(void)
 {
-    if (BTA_EnableBluetooth(btc_sec_callback) != BTA_SUCCESS) {
+    if (BTA_EnableBluetooth(btc_dm_sec_evt) != BTA_SUCCESS) {
         future_ready(*btc_main_get_future_p(BTC_MAIN_ENABLE_FUTURE), FUTURE_FAIL);
-	}
+    }
 }
 
 static void btc_disable_bluetooth(void)
 {
+    btc_config_shut_down();
     if (BTA_DisableBluetooth() != BTA_SUCCESS) {
         future_ready(*btc_main_get_future_p(BTC_MAIN_DISABLE_FUTURE), FUTURE_FAIL);
-	}
+    }
 }
 
 void btc_init_callback(void)
@@ -60,6 +63,7 @@ void btc_init_callback(void)
 
 static void btc_init_bluetooth(void)
 {
+    btc_config_init();
     bte_main_boot_entry(btc_init_callback);
 }
 
@@ -67,6 +71,7 @@ static void btc_init_bluetooth(void)
 static void btc_deinit_bluetooth(void)
 {
     bte_main_shutdown();
+    btc_config_clean_up();
     future_ready(*btc_main_get_future_p(BTC_MAIN_DEINIT_FUTURE), FUTURE_SUCCESS);
 }
 

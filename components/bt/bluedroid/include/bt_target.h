@@ -91,15 +91,15 @@
 #endif
 
 #ifndef BTA_AR_INCLUDED
-#define BTA_AR_INCLUDED FALSE//TRUE
+#define BTA_AR_INCLUDED TRUE//TRUE
 #endif
 
 #ifndef BTA_AV_INCLUDED
-#define BTA_AV_INCLUDED FALSE//TRUE
+#define BTA_AV_INCLUDED TRUE//TRUE
 #endif
 
 #ifndef BTA_AV_SINK_INCLUDED
-#define BTA_AV_SINK_INCLUDED FALSE//FALSE
+#define BTA_AV_SINK_INCLUDED TRUE//FALSE
 #endif
 
 #ifndef BTA_DISABLE_DELAY
@@ -466,7 +466,7 @@
 #define BTM_DEFAULT_DISC_INTERVAL   0x0800
 #endif
 
-/* Default class of device
+/* 
 * {SERVICE_CLASS, MAJOR_CLASS, MINOR_CLASS}
 *
 * SERVICE_CLASS:0x5A (Bit17 -Networking,Bit19 - Capturing,Bit20 -Object Transfer,Bit22 -Telephony)
@@ -474,8 +474,20 @@
 * MINOR_CLASS:0x0C - SMART_PHONE
 *
 */
+#define BTA_DM_COD_SMARTPHONE {0x5A, 0x02, 0x0C}
+
+/*
+* {SERVICE_CLASS, MAJOR_CLASS, MINOR_CLASS}
+*
+* SERVICE_CLASS:0x2C (Bit21 - Audio, Bit19 - Capturing)
+* MAJOR_CLASS:0x04 - Audio/Video
+* MINOR_CLASS:0x05 - LoudSpeaker
+*/
+#define BTA_DM_COD_LOUDSPEAKER {0x2C, 0x04, 0x14}
+
+/* Default class of device */
 #ifndef BTA_DM_COD
-#define BTA_DM_COD {0x5A, 0x02, 0x0C}
+#define BTA_DM_COD BTA_DM_COD_LOUDSPEAKER
 #endif
 
 /* The number of SCO links. */
@@ -490,7 +502,7 @@
 
 /* The number of security records for peer devices. 100 AS Default*/
 #ifndef BTM_SEC_MAX_DEVICE_RECORDS
-#define BTM_SEC_MAX_DEVICE_RECORDS  8 // 100
+#define BTM_SEC_MAX_DEVICE_RECORDS  4 // 100
 #endif
 
 /* The number of security records for services. 32 AS Default*/
@@ -573,7 +585,7 @@
 
 /* The IO capability of the local device (for Simple Pairing) */
 #ifndef BTM_LOCAL_IO_CAPS
-#define BTM_LOCAL_IO_CAPS               BTM_IO_CAP_IO
+#define BTM_LOCAL_IO_CAPS               BTM_IO_CAP_NONE
 #endif
 
 #ifndef BTM_LOCAL_IO_CAPS_BLE
@@ -636,12 +648,12 @@
 
 /* The maximum number of simultaneous channels that L2CAP can support. Up to 16*/
 #ifndef MAX_L2CAP_CHANNELS
-#define MAX_L2CAP_CHANNELS          8
+#define MAX_L2CAP_CHANNELS          4
 #endif
 
 /* The maximum number of simultaneous applications that can register with L2CAP. */
 #ifndef MAX_L2CAP_CLIENTS
-#define MAX_L2CAP_CLIENTS           8
+#define MAX_L2CAP_CLIENTS           4
 #endif
 
 /* The number of seconds of link inactivity before a link is disconnected. */
@@ -878,15 +890,15 @@
 #endif
 
 #ifndef GATT_MAX_SR_PROFILES
-#define GATT_MAX_SR_PROFILES        8 /* max is 32 */
+#define GATT_MAX_SR_PROFILES        4 /* max is 32 */
 #endif
 
 #ifndef GATT_MAX_APPS
-#define GATT_MAX_APPS            8 /* MAX is 32 note: 2 apps used internally GATT and GAP */
+#define GATT_MAX_APPS            4 /* MAX is 32 note: 2 apps used internally GATT and GAP */
 #endif
 
 #ifndef GATT_MAX_PHY_CHANNEL
-#define GATT_MAX_PHY_CHANNEL        7
+#define GATT_MAX_PHY_CHANNEL        4
 #endif
 
 /* Used for conformance testing ONLY */
@@ -897,7 +909,7 @@
 /* number of background connection device allowence, ideally to be the same as WL size
 */
 #ifndef GATT_MAX_BG_CONN_DEV
-#define GATT_MAX_BG_CONN_DEV        8 /*MAX is 32*/
+#define GATT_MAX_BG_CONN_DEV        4 /*MAX is 32*/
 #endif
 
 /******************************************************************************
@@ -978,7 +990,7 @@
 ******************************************************************************/
 
 #ifndef SDP_INCLUDED
-#define SDP_INCLUDED                FALSE //TRUE
+#define SDP_INCLUDED                TRUE
 #endif
 
 /* This is set to enable SDP server functionality. */
@@ -1001,16 +1013,16 @@
 
 /* The maximum number of SDP records the server can support. */
 #ifndef SDP_MAX_RECORDS
-#define SDP_MAX_RECORDS             15  /*max is 30*/
+#define SDP_MAX_RECORDS             6  /*max is 30*/
 #endif
 
 /* The maximum number of attributes in each record. */
 #ifndef SDP_MAX_REC_ATTR
-#define SDP_MAX_REC_ATTR            25
+#define SDP_MAX_REC_ATTR            8
 #endif
 
 #ifndef SDP_MAX_PAD_LEN
-#define SDP_MAX_PAD_LEN             600
+#define SDP_MAX_PAD_LEN             300
 #endif
 
 /* The maximum length, in bytes, of an attribute. */
@@ -1326,17 +1338,17 @@ Range: 2 octets
 ******************************************************************************/
 
 #ifndef AVDT_INCLUDED
-#define AVDT_INCLUDED               FALSE//TRUE
+#define AVDT_INCLUDED               TRUE
 #endif
 
 /* Include reporting capability in AVDTP */
 #ifndef AVDT_REPORTING
-#define AVDT_REPORTING              FALSE//TRUE
+#define AVDT_REPORTING              TRUE
 #endif
 
 /* Include multiplexing capability in AVDTP */
 #ifndef AVDT_MULTIPLEXING
-#define AVDT_MULTIPLEXING           FALSE//TRUE
+#define AVDT_MULTIPLEXING           TRUE
 #endif
 
 /* Number of simultaneous links to different peer devices. */
@@ -1593,7 +1605,7 @@ Range: 2 octets
 **
 ******************************************************************************/
 #ifndef AVRC_INCLUDED
-#define AVRC_INCLUDED               FALSE
+#define AVRC_INCLUDED               TRUE
 #endif
 
 #ifndef AVRC_METADATA_INCLUDED

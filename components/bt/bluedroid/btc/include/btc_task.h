@@ -45,6 +45,10 @@ typedef enum {
     BTC_PID_SPP,
     BTC_PID_SPPLIKE,
     BTC_PID_BLUFI,
+    BTC_PID_DM_SEC,
+    BTC_PID_PRF_QUE,
+    BTC_PID_A2DP,
+    BTC_PID_AVRC,
     BTC_PID_NUM,
 } btc_pid_t; //btc profile id
 

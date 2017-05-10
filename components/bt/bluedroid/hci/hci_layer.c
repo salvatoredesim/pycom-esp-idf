@@ -184,7 +184,7 @@ static int hci_layer_init_env(void)
         return -1;
     }
     pthread_mutex_init(&cmd_wait_q->commands_pending_response_lock, NULL);
-    cmd_wait_q->command_response_timer = osi_alarm_new("cmd_rsp_to", command_timed_out, cmd_wait_q, COMMAND_PENDING_TIMEOUT);
+    cmd_wait_q->command_response_timer = osi_alarm_new("cmd_rsp_to", command_timed_out, cmd_wait_q, COMMAND_PENDING_TIMEOUT, false);
     if (!cmd_wait_q->command_response_timer) {
         LOG_ERROR("%s unable to create command response timer.", __func__);
         return -1;
@@ -223,10 +223,8 @@ static void hci_host_thread_handler(void *arg)
      */
 
     BtTaskEvt_t e;
-
     for (;;) {
         if (pdTRUE == xQueueReceive(xHciHostQueue, &e, (portTickType)portMAX_DELAY)) {
-
             if (e.sig == 0xff) {
                 if (esp_vhci_host_check_send_available()) {
                     /*Now Target only allowed one packet per TX*/
@@ -366,8 +364,7 @@ static void fragmenter_transmit_finished(BT_HDR *packet, bool all_fragments_sent
         // This is kind of a weird case, since we're dispatching a partially sent packet
         // up to a higher layer.
         // TODO(zachoverflow): rework upper layer so this isn't necessary.
-        buffer_allocator->free(packet);
-        //dispatch_reassembled(packet);
+        dispatch_reassembled(packet);
         //data_dispatcher_dispatch(interface.event_dispatcher, packet->event & MSG_EVT_MASK, packet);
     }
 }

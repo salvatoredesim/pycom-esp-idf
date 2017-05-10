@@ -10,14 +10,18 @@ COMPONENT_ADD_INCLUDEDIRS :=	bluedroid/bta/include			\
 				bluedroid/gki/include			\
 				bluedroid/hci/include			\
 				bluedroid/osi/include			\
+				bluedroid/utils/include			\
+				bluedroid/embdrv/sbc/decoder/include	\
 				bluedroid/btc/core/include		\
 				bluedroid/btc/profile/esp/blufi/include		\
 				bluedroid/btc/profile/esp/include		\
 				bluedroid/btc/profile/std/gatt/include	\
 				bluedroid/btc/profile/std/gap/include	\
+				bluedroid/btc/profile/std/a2dp/include	\
 				bluedroid/btc/profile/std/sdp/include	\
 				bluedroid/btc/profile/std/include	\
 				bluedroid/btc/include		\
+				bluedroid/btif/include			\
 				bluedroid/stack/btm/include		\
 				bluedroid/stack/btu/include		\
 				bluedroid/stack/gap/include		\
@@ -26,8 +30,13 @@ COMPONENT_ADD_INCLUDEDIRS :=	bluedroid/bta/include			\
 				bluedroid/stack/l2cap/include		\
 				bluedroid/stack/sdp/include		\
 				bluedroid/stack/smp/include		\
+				bluedroid/stack/avct/include		\
+				bluedroid/stack/avrc/include		\
+				bluedroid/stack/avdt/include		\
+				bluedroid/stack/a2dp/include		\
 				bluedroid/stack/include			\
-				bluedroid/api/include		\
+				bluedroid/utils/include			\
+				bluedroid/api/include			\
 				bluedroid/include			\
 				include	
 
@@ -43,6 +52,8 @@ COMPONENT_SRCDIRS := 	bluedroid/bta/dm			\
 			bluedroid/bta/gatt			\
 			bluedroid/bta/hh			\
 			bluedroid/bta/sdp			\
+			bluedroid/bta/av			\
+			bluedroid/bta/ar			\
 			bluedroid/bta/sys			\
 			bluedroid/bta				\
 			bluedroid/btcore			\
@@ -52,10 +63,13 @@ COMPONENT_SRCDIRS := 	bluedroid/bta/dm			\
 			bluedroid/hci				\
 			bluedroid/main				\
 			bluedroid/osi				\
+			bluedroid/embdrv/sbc/decoder/srce			\
 			bluedroid/btc/core		\
 			bluedroid/btc/profile/esp/blufi	\
 			bluedroid/btc/profile/std/gap		\
 			bluedroid/btc/profile/std/gatt		\
+			bluedroid/btc/profile/std/a2dp		\
+			bluedroid/btc/profile/std/avrc		\
 			bluedroid/btc/profile			\
 			bluedroid/stack/btm			\
 			bluedroid/stack/btu			\
@@ -66,7 +80,12 @@ COMPONENT_SRCDIRS := 	bluedroid/bta/dm			\
 			bluedroid/stack/l2cap			\
 			bluedroid/stack/sdp			\
 			bluedroid/stack/smp			\
+			bluedroid/stack/avct			\
+			bluedroid/stack/avrc			\
+			bluedroid/stack/avdt			\
+			bluedroid/stack/a2dp			\
 			bluedroid/stack				\
+			bluedroid/utils				\
 			bluedroid/api			\
 			bluedroid				\
 			.

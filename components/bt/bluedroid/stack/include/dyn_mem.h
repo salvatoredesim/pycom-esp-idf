@@ -31,8 +31,7 @@
 #endif
 
 #ifndef SDP_DYNAMIC_MEMORY
-//#define SDP_DYNAMIC_MEMORY  FALSE
-#define SDP_DYNAMIC_MEMORY  TRUE
+#define SDP_DYNAMIC_MEMORY  FALSE
 #endif
 
 #ifndef L2C_DYNAMIC_MEMORY
